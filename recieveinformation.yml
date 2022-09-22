@@ -33,3 +33,10 @@
           filter_names:
           - '{{ folder_name }}'
     register: folder_info
+
+  - name: Get a list of the networks with a filter # Portgroup info to which the VM is connected
+  vmware.vmware_rest.vcenter_network_info:
+    filter_types: STANDARD_PORTGROUP
+    filter_names:
+    - "VM Network"
+  register: network_info
