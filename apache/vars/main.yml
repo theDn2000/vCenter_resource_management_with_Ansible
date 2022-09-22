@@ -1,0 +1,12 @@
+# Please edit the following lines to reflect your environment
+
+---
+cluster_name: "mycluster" # Name of the cluster (manual)
+datastore_name: "datastore1" # Name of the datastore (manual)
+folder_name: "myfolder" # Name of the folder (manual)
+
+vmware_guest:
+      hostname: "{{ vcenter_hostname }}" # vCenter hostname (manual)
+      username: "{{ vcenter_username }}" # vCenter username (manual)
+      password: "{{ vcenter_password }}" # vCenter password (manual)
+      validate_certs: no                 # vCenter certificate validation
