@@ -1,0 +1,12 @@
+--- 
+ # STARTING THE VM
+- name : "Initiate VM"
+  become: true
+  hosts: win
+  gather_facts: false
+  
+  tasks:
+  - name: Turn the power-on the VM
+    vmware.vmware_rest.vcenter_vm_power:
+      state: start
+      vm: '{{ vm_info.id }}'
