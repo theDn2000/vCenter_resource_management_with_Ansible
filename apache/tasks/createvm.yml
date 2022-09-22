@@ -1,0 +1,59 @@
+---
+- name: Create a VM
+  vmware.vmware_rest.vcenter_vm: 
+      boot:
+      delay: 0
+      enter_setup_mode: false
+      retry: false
+      retry_delay: 10000 
+      type: "BIOS" 
+      boot_devices: []
+      cdroms:
+      - allow_guest_control: true
+        backing:
+          type: "ISO_FILE"
+          iso_file: "[ds_200] iso/rhel_8.3_ks.iso" # ISO file path
+        ide:
+          master: true
+          primary: true
+        label: "CD/DVD drive 1" 
+        start_connected: true
+        type: "IDE"
+      cpu:
+      cores_per_socket: 1
+      count: 1
+      hot_add_enabled: false
+      hot_remove_enabled: false
+      disks:
+      - new_vmdk:
+          capacity: 536870912
+        label: "Hard disk 1" 
+        scsi:
+          bus: 0
+          unit: 0
+        type: "SCSI"
+      guest_OS: "OTHER_LINUX_64" 
+      hardware_version: "VMX_13"
+  memory:
+      hot_add_enabled: true
+      size_MiB: 4096
+      name: test_vm_3
+      nics:
+      - start_connected: true
+        type: "VMXNET3"
+        mac_type: "GENERATED"
+        backing:
+          type: "STANDARD_PORTGROUP"
+          network: "{{ network_id }}" # Network ID (from another task)
+      scsi_adapters:
+      - label: "SCSI controller 0"
+        scsi:
+          bus: 0
+          unit: 7
+        sharing: "NONE"
+        type: "PVSCSI"
+      placement:
+        datastore: "{{ datastore_id }}" # Datastore ID (from another task)
+        folder: "{{ folder_id }}" # Folder ID (from another task)
+        resource_pool: "{{ resource_pool_id }}" # Resource pool ID (from another task)
+  register: vm_info

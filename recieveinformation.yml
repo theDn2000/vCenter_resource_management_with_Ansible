@@ -4,8 +4,13 @@
   become: true
   hosts: win
   gather_facts: false
+  vars:
+    cluster_name: "mycluster" # Name of the cluster
+    datastore_name: "datastore1" # Name of the datastore
+    folder_name: "myfolder" # Name of the folder
+
   tasks:
-  
+
   - name: Get Cluster info
     vmware.vmware_rest.vcenter_cluster_info:
           filter_names:
