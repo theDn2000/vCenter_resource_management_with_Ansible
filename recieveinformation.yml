@@ -1,0 +1,35 @@
+---
+# GETTING THE INFO OF THE TARGET MACHINE
+- name : "Get the info of the target machine"
+  become: true
+  hosts: win
+  gather_facts: false
+  vars:
+    cluster_name: "mycluster" # Name of the cluster
+    datastore_name: "datastore1" # Name of the datastore
+    folder_name: "myfolder" # Name of the folder
+
+  tasks:
+
+  - name: Get Cluster info
+    vmware.vmware_rest.vcenter_cluster_info:
+          filter_names:
+          - "{{ cluster_name }}"
+    register: cluster_info
+
+  - name: Get Resource info for {{ cluster_name }}
+    vmware.vmware_rest.vcenter_cluster_info:
+          cluster: "{{ cluster_info.value[0].cluster }}"
+    register: resource_pool_info
+
+  - name: Get datastore info
+    vmware.vmware_rest.vcenter_datastore_info:
+          filter_names:
+          - "{{ datastore_name }}"
+    register: datastore_info
+
+  - name: Get folder info
+    vmware.vmware_rest.vcenter_folder_info:
+          filter_names:
+          - '{{ folder_name }}'
+    register: folder_info

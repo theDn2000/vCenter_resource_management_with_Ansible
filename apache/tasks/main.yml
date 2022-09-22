@@ -1,0 +1,5 @@
+---
+# Tasks file for /etc/ansible/apache
+- import_tasks: getdata.yml
+- import_tasks: createvm.yml
+- import_tasks: initvm.yml
