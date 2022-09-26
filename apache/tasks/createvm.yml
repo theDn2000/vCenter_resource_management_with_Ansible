@@ -12,7 +12,7 @@
       - allow_guest_control: true
         backing:
           type: "ISO_FILE"
-          iso_file: "[ds_200] iso/rhel_8.3_ks.iso" # ISO file path and it's name
+          iso_file: "[ds_200] iso/rhel_8.3_ks.iso" # ISO file path and it's name (Kickstart file)
         ide:
           master: true
           primary: true
