@@ -1,0 +1,26 @@
+---
+- name: info vm demo # Test the connection between Vcenter and Ansible
+  hosts: localhost
+  become: false
+  gather_facts: no
+  vars:
+    vcenter_hostname: "{{ ATOM_CREDENTIAL1 }} " 
+    vcenter_username: " {{ ATOM_CREDENTIAL2 }} " 
+    vcenter_password: " {{ ATOM_CREDENTIAL3 }} " 
+    vcenter_datacenter: "X"
+    vcenter_cluster: "X"
+  tasks:
+  - name: Get the VM info
+    vmware_guest_info:
+      hostname: "{{ vcenter_hostname }}"
+      username: "{{ vcenter_username }}"
+      password: "{{ vcenter_password }}"
+      validate_certs: no
+      datacenter: "{{ datacenter_name }}"
+      name: "{{ vm_name }}"
+    register: vm_info
+
+  - name: Print the VM info
+    debug:
+      var: vm_info
+  
